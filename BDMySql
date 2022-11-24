@@ -1,0 +1,40 @@
+CREATE TABLE `Producto` (
+	`idProducto` INT NOT NULL AUTO_INCREMENT,
+	`Nombre` varchar(50) NOT NULL UNIQUE,
+	`Costo` DECIMAL(8.2) NOT NULL,
+	PRIMARY KEY (`idProducto`)
+);
+
+CREATE TABLE `Usuario` (
+	`NombreUsuario` varchar(25) NOT NULL,
+	`Nombres` varchar(50) NOT NULL,
+	`Apellidos` varchar(50) NOT NULL,
+	`Password` varchar(50) NOT NULL,
+	PRIMARY KEY (`NombreUsuario`)
+);
+
+CREATE TABLE `Venta` (
+	`IdVenta` INT NOT NULL AUTO_INCREMENT,
+	`Fecha` DATETIME NOT NULL,
+	`NombreUsuario` DATETIME NOT NULL,
+	PRIMARY KEY (`IdVenta`)
+);
+
+CREATE TABLE `ProductoVendido` (
+	`IdProductoVenta` INT NOT NULL AUTO_INCREMENT,
+	`IdVenta` INT NOT NULL AUTO_INCREMENT,
+	`Costo` DECIMAL(8.2) NOT NULL,
+	`Cantidad` INT NOT NULL,
+	`IdProcducto` INT NOT NULL,
+	PRIMARY KEY (`IdProductoVenta`)
+);
+
+ALTER TABLE `Venta` ADD CONSTRAINT `Venta_fk0` FOREIGN KEY (`NombreUsuario`) REFERENCES `Usuario`(`NombreUsuario`);
+
+ALTER TABLE `ProductoVendido` ADD CONSTRAINT `ProductoVendido_fk0` FOREIGN KEY (`IdVenta`) REFERENCES `Venta`(`IdVenta`);
+
+ALTER TABLE `ProductoVendido` ADD CONSTRAINT `ProductoVendido_fk1` FOREIGN KEY (`IdProcducto`) REFERENCES `Producto`(`idProducto`);
+
+
+
+
