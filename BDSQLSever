@@ -1,0 +1,65 @@
+CREATE TABLE [Producto] (
+	idProducto integer NOT NULL,
+	Nombre varchar(50) NOT NULL UNIQUE,
+	Costo decimal(8.2) NOT NULL,
+  CONSTRAINT [PK_PRODUCTO] PRIMARY KEY CLUSTERED
+  (
+  [idProducto] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [Usuario] (
+	NombreUsuario varchar(25) NOT NULL,
+	Nombres varchar(50) NOT NULL,
+	Apellidos varchar(50) NOT NULL,
+	Password varchar(50) NOT NULL,
+  CONSTRAINT [PK_USUARIO] PRIMARY KEY CLUSTERED
+  (
+  [NombreUsuario] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [Venta] (
+	IdVenta integer NOT NULL,
+	Fecha datetime NOT NULL,
+	NombreUsuario datetime NOT NULL,
+  CONSTRAINT [PK_VENTA] PRIMARY KEY CLUSTERED
+  (
+  [IdVenta] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [ProductoVendido] (
+	IdProductoVenta integer NOT NULL,
+	IdVenta integer NOT NULL,
+	Costo decimal(8.2) NOT NULL,
+	Cantidad integer NOT NULL,
+	IdProcducto integer NOT NULL,
+  CONSTRAINT [PK_PRODUCTOVENDIDO] PRIMARY KEY CLUSTERED
+  (
+  [IdProductoVenta] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+
+
+ALTER TABLE [Venta] WITH CHECK ADD CONSTRAINT [Venta_fk0] FOREIGN KEY ([NombreUsuario]) REFERENCES [Usuario]([NombreUsuario])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [Venta] CHECK CONSTRAINT [Venta_fk0]
+GO
+
+ALTER TABLE [ProductoVendido] WITH CHECK ADD CONSTRAINT [ProductoVendido_fk0] FOREIGN KEY ([IdVenta]) REFERENCES [Venta]([IdVenta])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [ProductoVendido] CHECK CONSTRAINT [ProductoVendido_fk0]
+GO
+ALTER TABLE [ProductoVendido] WITH CHECK ADD CONSTRAINT [ProductoVendido_fk1] FOREIGN KEY ([IdProcducto]) REFERENCES [Producto]([idProducto])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [ProductoVendido] CHECK CONSTRAINT [ProductoVendido_fk1]
+GO
